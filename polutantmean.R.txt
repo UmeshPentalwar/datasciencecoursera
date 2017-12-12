@@ -1,0 +1,25 @@
+
+## extract the folder specdata in working directory 
+extract the folder specdata in working directory
+ 
+library(readxl)
+library(dplyr)
+
+polutantmean <- funtion(directory , polutant , id = 1:332){
+   
+       
+   file.names <- list.files(directory , pattern = '*.csv')
+   dir <- getwd()
+   setwd(directory)    ## or setwd(past0(dir,'/',directory))
+   df.list <- lapply(file.names,read.csv) ## or lapply(file.names,read_xlsx)
+   req.moniterIds <- df.list[id]
+   
+   df <- bind_rows(req.moniterIds) ## or rbind(req.moniterIds) 
+   setwd('..')  ## move back to previous directory  
+    
+   return(colmeans(df[,polutant],na.rm = T))
+   
+   } 
+
+
+

@@ -10,7 +10,7 @@ polutantmean <- funtion(directory , polutant , id = 1:332){
        
    file.names <- list.files(directory , pattern = '*.csv')
    dir <- getwd()
-   setwd(directory)    ## or setwd(past0(dir,'/',directory))
+   setwd(directory)    ## or setwd(paste0(dir,'/',directory))
    df.list <- lapply(file.names,read.csv) ## or lapply(file.names,read_xlsx)
    req.moniterIds <- df.list[id]
    

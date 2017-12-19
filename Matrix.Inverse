@@ -1,0 +1,39 @@
+
+makeCacheMatrix  <- function(x = matrix()) {
+        invr <- NULL
+        setmatrix <- function(m) {
+                x <<- m
+                invr <<- NULL
+        }
+        getmatrix <- function() x
+        setinverse <- function(inv.mat) invr <<- inv.mat
+        getinverse <- function() invr
+        list(setmatrix = setmatrix, getmatrix = getmatrix,
+             setinverse = setinverse,
+             getinverse = getinverse)
+}
+
+cacheSolve <- function(x, ...) {
+        invr <- x$getinverse()
+        if(!is.null(invr)) {
+                message("getting cached data")
+                return(invr)
+        }
+        new.mat <- x$getmatrix()
+        invr <- solve(new.mat)
+        x$setinverse(invr) 
+       invr 
+}
+
+spl.matrix <- makeCacheMatrix()
+#Set the matrix 
+spl.matrix$setmatrix(matrix(c(36,23,56,34),2,2))
+#get the matrix 
+print(spl.matrix$getmatrix())
+#check if inverse is calulated of not 
+print(spl.matrix$getinverse())
+
+#calculate & cache the inverse by cacheSolve function
+print(cacheSolve(spl.matrix))
+#check the cached inverse 
+print(spl.matrix$getinverse())

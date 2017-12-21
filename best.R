@@ -2,8 +2,6 @@
 
 best <- function(state, outcome){
   
-  library(dplyr)
-  
   df <- read.csv('outcome-of-care-measures.csv' , colClasses = 'character')
   
   req.df <- sapply(df ,function(x){ x[grepl('Not Available', x )] <- NA ; x })
@@ -21,12 +19,13 @@ best <- function(state, outcome){
   
   req.df <- req.df[req.df$State == state ,]
   
+  
    if(outcome == 'heart attack'){
-    req.df[order(req.df[,11],req.df[,2]),2][1]
+    req.df[order(req.df[,11],req.df[,2] ,na.last = NA),2][1]
     } else if (outcome == 'heart failure'){
-     req.df[order(req.df[,17],req.df[,2]),2][1]
+     req.df[order(req.df[,17],req.df[,2],na.last = NA),2][1]
    }else {
-     req.df[order(req.df[,23],req.df[,2]),2][1]
+     req.df[order(req.df[,23],req.df[,2],na.last = NA),2][1]
    }
      
   }
